@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippyly HTML Demo</title>
+
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .custom-btn {
+            color: white;
+            border: 0;
+            background-color: #0084ff;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-weight: bold;
+            margin: 0 0 0 16px;
+            cursor: pointer;
+        }
+
+        #userDetailsContainer, #loginContainer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <snippyly-cursor></snippyly-cursor>
+
+    <div class='header'>
+        <div>
+            <snippyly-presence></snippyly-presence>
+        </div>
+        <div>
+            <div id="userDetailsContainer">
+                <span id="userDetails"></span>
+                <button class='custom-btn' onclick='signOut()'>Sign Out</button>
+            </div>
+            <div id="loginContainer">
+                <span>Sign In with:</span>
+                <button class='custom-btn' onclick='signIn("1")'>James Smith</button>
+                <button class='custom-btn' onclick='signIn("2")'>Maria Garcia</button>
+                <button class='custom-btn' onclick='signIn("3")'>Sarah Wilson</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.14/snippyly.js" onload="loadSnippyly()">
+    </script>
+    <script>
+        async function loadSnippyly() {
+
+            await Snippyly.init("UnHxMCCFcclkP4bErBL1");
+
+            const presenceElement = Snippyly.getPresenceElement();
+            presenceElement.getOnlineUsersOnCurrentDocument().subscribe((data) => {
+                console.log('getOnlineUsersOnCurrentDocument in html', data);
+            })
+
+            if (localStorage.getItem('user')) {
+                try {
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    if (user) {
+                        signIn(user.userId);
+                    }
+                } catch (err) {
+                    localStorage.removeItem('user');
+                    window.location.reload();
+                }
+            } else {
+                const userDetailsContainer = document.getElementById('userDetailsContainer');
+                userDetailsContainer.style.display = 'none';
+
+                const loginContainer = document.getElementById('loginContainer');
+                loginContainer.style.display = 'block';
+            }
+        }
+    </script>
+    <script>
+        const users = [{
+                userId: '1',
+                name: 'James Smith',
+                photoUrl: '',
+                email: 'james.smith@gmail.com',
+                plan: 'free',
+                groupId: ''
+            },
+            {
+                userId: '2',
+                name: 'Maria Garcia',
+                photoUrl: '',
+                email: 'maria.garcia@gmail.com',
+                plan: 'paid',
+                groupId: ''
+            },
+            {
+                userId: '3',
+                name: 'Sarah Wilson',
+                photoUrl: '',
+                email: 'sarah.wilson@gmail.com',
+                plan: 'trial',
+                groupId: ''
+            }
+        ];
+
+        async function signIn(userId) {
+            if (Snippyly) {
+                const user = users.find((user) => user.userId === userId);
+                if (user) {
+                    const userDetails = document.getElementById('userDetails');
+                    userDetails.innerText = `Hi ${user.name}`;
+                    const userDetailsContainer = document.getElementById('userDetailsContainer');
+                    userDetailsContainer.style.display = 'block';
+                    
+                    const loginContainer = document.getElementById('loginContainer');
+                    loginContainer.style.display = 'none';
+
+                    localStorage.setItem('user', JSON.stringify(user));
+                    await Snippyly.identify(user);
+                }
+            }
+        }
+
+        function signOut() {
+            localStorage.removeItem('user');
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
