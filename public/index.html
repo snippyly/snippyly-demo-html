@@ -7,6 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snippyly HTML Demo</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+
     <style>
         .header {
             display: flex;
@@ -26,8 +39,38 @@
             cursor: pointer;
         }
 
-        #userDetailsContainer, #loginContainer {
+        #userDetailsContainer,
+        #loginContainer {
             display: none;
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            height: 200px;
+            /* min-width: 200px; */
+            background: greenyellow;
+            border-radius: 8px;
+            flex: 0 0 202px;
+            margin: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+        }
+
+        @media (max-width: 700px) {
+            .box {
+                min-width: 400px !important;
+            }
+
+            #box2,
+            #box5 {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -52,88 +95,36 @@
             </div>
         </div>
     </div>
-
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.14/snippyly.js" onload="loadSnippyly()">
+    <div class="box-container" id="boxContainer1">
+        <div class="box" id="box1"><span>1</span></div>
+        <div class="box" id="box2"><span>2</span></div>
+        <div class="box" id="box3"><span>3</span></div>
+        <div class="box" id="box4"><span>4</span></div>
+        <div class="box" id="box5"><span>5</span></div>
+        <div class="box" id="box6"><span>6</span></div>
+        <div class="box" id="box7"><span>7</span></div>
+        <div class="box" id="box8"><span>8</span></div>
+        <div class="box" id="box9"><span>9</span></div>
+        <div class="box" id="box10"><span>10</span></div>
+        <div class="box" id="box11"><span>11</span></div>
+        <div class="box" id="box12"><span>12</span></div>
+        <div class="box" id="box13"><span>13</span></div>
+        <div class="box" id="box14"><span>14</span></div>
+        <div class="box" id="box15"><span>15</span></div>
+        <div class="box" id="box16"><span>16</span></div>
+        <div class="box" id="box17"><span>17</span></div>
+        <div class="box" id="box18"><span>18</span></div>
+        <div class="box" id="box19"><span>19</span></div>
+        <div class="box" id="box20"><span>20</span></div>
+        <div class="box" id="box21"><span>21</span></div>
+        <div class="box" id="box22"><span>22</span></div>
+        <div class="box" id="box23"><span>23</span></div>
+        <div class="box" id="box24"><span>24</span></div>
+        <div class="box" id="box25"><span>25</span></div>
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.21/snippyly.js" onload="loadSnippyly()">
     </script>
-    <script>
-        async function loadSnippyly() {
-
-            await Snippyly.init("UnHxMCCFcclkP4bErBL1");
-
-            const presenceElement = Snippyly.getPresenceElement();
-            presenceElement.getOnlineUsersOnCurrentDocument().subscribe((data) => {
-                console.log('getOnlineUsersOnCurrentDocument in html', data);
-            })
-
-            if (localStorage.getItem('user')) {
-                try {
-                    const user = JSON.parse(localStorage.getItem('user'));
-                    if (user) {
-                        signIn(user.userId);
-                    }
-                } catch (err) {
-                    localStorage.removeItem('user');
-                    window.location.reload();
-                }
-            } else {
-                const userDetailsContainer = document.getElementById('userDetailsContainer');
-                userDetailsContainer.style.display = 'none';
-
-                const loginContainer = document.getElementById('loginContainer');
-                loginContainer.style.display = 'block';
-            }
-        }
-    </script>
-    <script>
-        const users = [{
-                userId: '1',
-                name: 'James Smith',
-                photoUrl: '',
-                email: 'james.smith@gmail.com',
-                plan: 'free',
-                groupId: ''
-            },
-            {
-                userId: '2',
-                name: 'Maria Garcia',
-                photoUrl: '',
-                email: 'maria.garcia@gmail.com',
-                plan: 'paid',
-                groupId: ''
-            },
-            {
-                userId: '3',
-                name: 'Sarah Wilson',
-                photoUrl: '',
-                email: 'sarah.wilson@gmail.com',
-                plan: 'trial',
-                groupId: ''
-            }
-        ];
-
-        async function signIn(userId) {
-            if (Snippyly) {
-                const user = users.find((user) => user.userId === userId);
-                if (user) {
-                    const userDetails = document.getElementById('userDetails');
-                    userDetails.innerText = `Hi ${user.name}`;
-                    const userDetailsContainer = document.getElementById('userDetailsContainer');
-                    userDetailsContainer.style.display = 'block';
-                    
-                    const loginContainer = document.getElementById('loginContainer');
-                    loginContainer.style.display = 'none';
-
-                    localStorage.setItem('user', JSON.stringify(user));
-                    await Snippyly.identify(user);
-                }
-            }
-        }
-
-        function signOut() {
-            localStorage.removeItem('user');
-            window.location.reload();
-        }
-    </script>
+    <script type="text/javascript" src="./snippyly.js"></script>
 </body>
 
 </html>
