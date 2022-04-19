@@ -13,6 +13,8 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.27/snippyly.css" rel="stylesheet">
+
     <style>
         html,
         body {
@@ -72,11 +74,36 @@
                 display: none;
             }
         }
+
+        snippyly-comment-tool {
+            position: fixed;
+            z-index: 1000000;
+            bottom: 24px;
+            right: 24px;
+        }
+
+        snippyly-comment-tool .add-comment-btn {
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            background: white;
+            box-shadow: 2px 2px 8px -2px grey;
+        }
+
+        snippyly-comment-tool .add-comment-btn img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
     </style>
 </head>
 
 <body>
     <snippyly-cursor></snippyly-cursor>
+    <snippyly-comment-tool>
+        <div class="add-comment-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/727/727570.png" alt="Add comment" />
+        </div>
+    </snippyly-comment-tool>
 
     <div class='header'>
         <div>
@@ -122,7 +149,7 @@
         <div class="box" id="box24"><span>24</span></div>
         <div class="box" id="box25"><span>25</span></div>
     </div>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1/snippyly.js" onload="loadSnippyly()">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.27/snippyly.js" onload="loadSnippyly()">
     </script>
     <script type="text/javascript" src="./script.js"></script>
 </body>
