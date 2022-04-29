@@ -26,30 +26,67 @@ async function loadSnippyly() {
     }
 }
 
-const users = [{
-    userId: '1',
-    name: 'James Smith',
-    photoUrl: '',
-    email: 'james.smith@gmail.com',
-    plan: 'free',
-    groupId: ''
-},
-{
-    userId: '2',
-    name: 'Maria Garcia',
-    photoUrl: '',
-    email: 'maria.garcia@gmail.com',
-    plan: 'paid',
-    groupId: ''
-},
-{
-    userId: '3',
-    name: 'Sarah Wilson',
-    photoUrl: '',
-    email: 'sarah.wilson@gmail.com',
-    plan: 'trial',
-    groupId: ''
-}
+const users = [
+    {
+        userId: '1',
+        name: 'James Smith',
+        photoUrl: '',
+        email: 'james.smith@gmail.com',
+        plan: 'free',
+        groupId: '',
+        contacts: [
+            {
+                userId: '2',
+                name: 'Maria Garcia',
+                email: 'maria.garcia@gmail.com',
+            },
+            {
+                userId: '3',
+                name: 'Sarah Wilson',
+                email: 'sarah.wilson@gmail.com',
+            }
+        ]
+    },
+    {
+        userId: '2',
+        name: 'Maria Garcia',
+        photoUrl: '',
+        email: 'maria.garcia@gmail.com',
+        plan: 'paid',
+        groupId: '',
+        contacts: [
+            {
+                userId: '1',
+                name: 'James Smith',
+                email: 'james.smith@gmail.com',
+            },
+            {
+                userId: '3',
+                name: 'Sarah Wilson',
+                email: 'sarah.wilson@gmail.com',
+            }
+        ]
+    },
+    {
+        userId: '3',
+        name: 'Sarah Wilson',
+        photoUrl: '',
+        email: 'sarah.wilson@gmail.com',
+        plan: 'trial',
+        groupId: '',
+        contacts: [
+            {
+                userId: '1',
+                name: 'James Smith',
+                email: 'james.smith@gmail.com',
+            },
+            {
+                userId: '2',
+                name: 'Maria Garcia',
+                email: 'maria.garcia@gmail.com',
+            }
+        ]
+    }
 ];
 
 async function signIn(userId) {
