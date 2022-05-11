@@ -5,7 +5,11 @@ async function loadSnippyly() {
     const presenceElement = Snippyly.getPresenceElement();
     presenceElement.getOnlineUsersOnCurrentDocument().subscribe((data) => {
         console.log('getOnlineUsersOnCurrentDocument in html', data);
-    })
+    });
+
+    // To enable text comment feature
+    const commentElement = Snippyly.getCommentElement();
+    commentElement.enableTextCommentButton(true);
 
     if (localStorage.getItem('user')) {
         try {
