@@ -9,7 +9,7 @@ async function loadSnippyly() {
 
     // To enable text comment feature
     const commentElement = Snippyly.getCommentElement();
-    commentElement.enableTextCommentButton(true);
+    commentElement.enableTextComments(true);
 
     if (localStorage.getItem('user')) {
         try {
